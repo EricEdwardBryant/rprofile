@@ -34,9 +34,7 @@ Alos, a separate library is configured
 ```r
 # R executes this function before starting the R session. See ?Startup.
 .First <- function() {
-  needed <- function(pkg) !requireNamespace(pkg, quietly = TRUE)
-  
-  if (needed("rprofile") || needed("remotes")) {
+  if (!all(c("rprofile", "remotes") %in% rownames(utils::installed.packages()))) {
     message(
       '"rprofile", and "remotes" need to be installed\n',
       '  install.packages("remotes")\n',
