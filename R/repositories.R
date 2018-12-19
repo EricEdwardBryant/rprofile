@@ -9,8 +9,8 @@
 #' @md
 #' @export
 
-set_repositories <- function(repos = repos()) {
-  options(repos = repos)
+set_repositories <- function(urls = repos()) {
+  options(repos = urls)
 }
 
 #' Create repository vector
