@@ -15,44 +15,37 @@ remotes::install_github("EricEdwardBryant/rprofile")
 
 ## Usage
 
-The following is an example
+The following is a minimal rprofile detailing the usage of the rprofile package
+with an
 [.Rprofile](https://csgillespie.github.io/efficientR/3-3-r-startup.html#r-startup).
+When R starts, it searches for a file named `.Rprofile`, which is an R script
+that will be sourced before the session begins.
+User level configuration can be set by placing a `.Rprofile` in your home
+directory.
+Project level configuration can be set by placing a `.Rprofile` in your
+project's directory.
+In the `.Rprofile` you can use the rprofile package to configure R package
+*repositories* (where packages are downloaded from) and *libraries* (where
+packages are downloaded to).
+By default, rprofile ties the current R version to a snapshot of CRAN
+hosted by Microsoft, and a supported version of Bioconductor.
+Alos, a separate library is configured 
 
 ```r
 # R executes this function before starting the R session. See ?Startup.
 .First <- function() {
-  # Install remotes and rprofile if necessary
   needed <- function(pkg) !requireNamespace(pkg, quietly = TRUE)
-  if (needed("remotes")) install.packages("remotes")
-  if (needed("rprofile")) remotes::install_github("EricEdwardBryant/rprofile")
   
-  # The following options can be configured. The defaults are shown here.
-  # If not specified, these defaults will be used.
-  options(
-    rprofile.cran        = rprofile::version_cran(),
-    rprofile.bioc        = rprofile::version_bioc(),
-    rprofile.cran.mirror = "https://cran.microsoft.com/snapshot",
-    rprofile.bioc.mirror = "https://bioconductor.org",
-    rprofile.lib.home    = R.home()  # Where libraries will be created
-    rprofile.lib.name    = rprofile::library_name()
-  )
-
-  # Other user specific options
-  options(
-    browserNLdisabled     = TRUE,
-    deparse.max.lines     = 2,
-    keep.source           = TRUE,
-    keep.source.pkgs      = TRUE,
-    EBImage.display       = "raster",
-    devtools.desc.author  = "'Eric Bryant <eeb2139@columbia.edu> [aut, cre]'",
-    devtools.name         = "Eric Bryant",
-    devtools.desc.license = "GPL-3",
-    prompt                = "Я▸ ',
-    continue              = '     '
-  )
-  
-  rprofile::set_repositories()
-  rprofile::set_library()
-  rprofile::startup_message()
+  if (needed("rprofile") || needed("remotes")) {
+    message(
+      '"rprofile", and "remotes" need to be installed\n',
+      '  install.packages("remotes")\n',
+      '  remotes::install_github("EricEdwardBryant/rprofile")\n'
+    )
+  } else {
+    rprofile::set_repositories()
+    rprofile::set_library()
+    rprofile::startup_message()
+  }
 }
 ```
