@@ -3,7 +3,7 @@ Title: Manage package repositories and libraries in your Rprofile
 Version: 0.0.0.9000
 Authors@R: 'Eric Bryant <eeb2139@columbia.edu> [aut, cre]'
 Description: This package provides tools to configure versioned R package
-repositories and libraries based on the current R version.
+  repositories and libraries based on the current R version.
 Depends: R (>= 3.0.0)
 License: GPL-3
 Encoding: UTF-8
