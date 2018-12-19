@@ -11,16 +11,17 @@ map_r_to_bioc(...)
 }
 \arguments{
 \item{r}{The R version (e.g. "3.5").
-Defaults to \code{version_r_major_minor()}.}
+Defaults to \code{\link[rprofile:version_r_major_minor]{rprofile::version_r_major_minor()}}.}
+
+\item{map}{Named character vector mapping R versions (names) to
+Bioconductor versions (values).
+Defaults to \code{\link[rprofile:map_r_to_bioc]{rprofile::map_r_to_bioc()}}.}
 
 \item{...}{Custom mappings in name (R version) value (Bioc version) pairs.}
-
-\item{mapp}{Named character vector mapping R versions (names) to
-Bioconductor versions (values).
-Defaults to \code{map_r_to_bioc()}.}
 }
 \value{
-Returns a Bioconductor version string, or \code{NULL`` if no version yet specified in}mapping_r_to_bioc`.
+Returns a Bioconductor version string, or `NULL`` if no version yet specified
+by \code{\link[rprofile:map_r_to_bioc]{rprofile::map_r_to_bioc()}}.
 }
 \description{
 Given an R version, return a Bioconductor version.

@@ -4,25 +4,30 @@
 \alias{repos}
 \title{Create repository vector}
 \usage{
-repos(..., cran = version_cran(), bioc = version_bioc(),
+repos(..., cran = getOption("rprofile.cran", version_cran()),
+  bioc = getOption("rprofile.bioc", version_bioc()),
   cran_mirror = getOption("rprofile.cran.mirror",
-  "https://cran.microsoft.com/snapshot"),
+  "https://cran.microsoft.com"),
   bioc_mirror = getOption("rprofile.bioc.mirror", "https://bioconductor.org"))
 }
 \arguments{
 \item{...}{User specified repositories added to beginning of vector.}
 
 \item{cran}{The CRAN snapshot date ("YYYY-MM-DD").
-Defaults to \code{rprofile::version_cran()}.}
+Defaults to the "rprofile.cran" option if set, else
+\code{\link[rprofile:version_cran]{rprofile::version_cran()}}.}
 
 \item{bioc}{The Bioconductor version.
-Defaults to \code{rprofile::version_bioc()}.}
+Defaults to the "rprofile.bioc" option if set, else
+\code{\link[rprofile:version_bioc]{rprofile::version_bioc()}}.}
 
 \item{cran_mirror}{URL for CRAN snapshot mirror.
-Defaults to \code{getOption("rprofile.cran", "https://cran.microsoft.com/snapshot")}.}
+Defaults to the "rprofile.cran.mirror" option if set, else
+\code{"https://cran.microsoft.com"}.}
 
 \item{bioc_mirror}{URL for Bioconductor mirror.
-Defaults to \code{getOption("rprofile.bioc", "https://bioconductor.org")}.}
+Defaults to the "rprofile.bioc.mirror" option if set, else
+\code{"https://bioconductor.org"}.}
 }
 \description{
 Create a named vector of repositories

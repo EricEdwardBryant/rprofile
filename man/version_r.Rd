@@ -13,9 +13,10 @@ version_r_major(r = version_r())
 version_r_major_minor(r = version_r())
 }
 \arguments{
-\item{r}{Numeric R version as is returned by \code{base::getRversion()}.}
+\item{r}{Numeric R version as is returned by \code{\link[base:getRversion]{base::getRversion()}}.
+Defaults to \code{\link[rprofile:version_r]{rprofile::version_r()}}.}
 }
 \description{
-R version utilities. Why? \code{rprofile::version_r_major_minor()} makes the
+R version utilities. Why? \code{\link[rprofile:version_r_major_minor]{rprofile::version_r_major_minor()}} makes the
 granularity of the version information clear.
 }

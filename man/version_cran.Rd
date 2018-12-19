@@ -5,17 +5,20 @@
 \alias{map_r_to_snapshot}
 \title{Get the designated CRAN date for a version of R}
 \usage{
-version_cran(r = version_r_major_minor(), map = map_r_to_snapshot())
+version_cran(r = version_r_major_minor(), map = map_r_to_snapshot(),
+  latest = FALSE)
 
 map_r_to_snapshot(...)
 }
 \arguments{
 \item{r}{The R version (e.g. "3.5").
-Defaults to \code{rprofile::version_r_major_minor()}.}
+Defaults to \code{\link[rprofile:version_r_major_minor]{rprofile::version_r_major_minor()}}.}
 
 \item{map}{Named character vector mapping R version (names) to snapshot date
 (values).
-Defaults to \code{rprofile::map_r_to_snapshot()}.}
+Defaults to \code{\link[rprofile:map_r_to_snapshot]{rprofile::map_r_to_snapshot()}}.}
+
+\item{latest}{Logical. Use the mirror without the snapshot.}
 }
 \value{
 Returns a date in "YYYY-MM-DD" format.
