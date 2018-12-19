@@ -5,10 +5,11 @@
 #' a versioned CRAN package repository.
 #'
 #' @param r The R version (e.g. "3.5").
-#' Defaults to `rprofile::version_r_major_minor()`.
+#' Defaults to [rprofile::version_r_major_minor()].
 #' @param map Named character vector mapping R version (names) to snapshot date
 #' (values).
-#' Defaults to `rprofile::map_r_to_snapshot()`.
+#' Defaults to [rprofile::map_r_to_snapshot()].
+#' @param latest Logical. Use the mirror without the snapshot.
 #'
 #' @return
 #' Returns a date in "YYYY-MM-DD" format.
@@ -35,15 +36,24 @@
 #' @md
 #' @export
 
-version_cran <- function(r   = version_r_major_minor(),
-                         map = map_r_to_snapshot()) {
-  current_release <- with(R.version, paste(year, month, day, sep = '-'))
+version_cran <- function(r      = version_r_major_minor(),
+                         map    = map_r_to_snapshot(),
+                         latest = FALSE) {
+
   cran <- map[as.character(r)]
-  if (is.na(cran)) return(current_release) else return(cran)
+
+  if (latest) {
+    return("latest")
+  } else if (is.na(cran)) {
+    return(with(R.version, paste(year, month, day, sep = '-')))
+  } else {
+    return(cran)
+  }
 }
 
 #' @rdname version_cran
 #' @export
+
 map_r_to_snapshot <- function(...) {
   c(...,
     '3.5' = '2018-12-20',
@@ -58,14 +68,14 @@ map_r_to_snapshot <- function(...) {
 #' Given an R version, return a Bioconductor version.
 #'
 #' @param r The R version (e.g. "3.5").
-#' Defaults to `version_r_major_minor()`.
-#' @param mapp Named character vector mapping R versions (names) to
+#' Defaults to [rprofile::version_r_major_minor()].
+#' @param map Named character vector mapping R versions (names) to
 #' Bioconductor versions (values).
-#' Defaults to `map_r_to_bioc()`.
+#' Defaults to [rprofile::map_r_to_bioc()].
 #'
 #' @return
 #' Returns a Bioconductor version string, or `NULL`` if no version yet specified
-#' in `mapping_r_to_bioc`.
+#' by [rprofile::map_r_to_bioc()].
 #'
 #' @md
 #' @export
@@ -116,25 +126,15 @@ map_r_to_bioc <- function(...) {
   )
 }
 
-# Can't see use for this at the moment
-# @rdname version_bioc
-# @export
-
-# map_bioc_to_r <- function(...) {
-#   r_to_bioc <- map_r_to_bioc(...)
-#   bioc_to_r <- names(r_to_bioc)
-#   names(bioc_to_r) <- r_to_bioc
-#   bioc_to_r
-# }
-
 
 # ---- R versions ----
 #' Granular R versions
 #'
-#' R version utilities. Why? `rprofile::version_r_major_minor()` makes the
+#' R version utilities. Why? [rprofile::version_r_major_minor()] makes the
 #' granularity of the version information clear.
 #'
-#' @param r Numeric R version as is returned by `base::getRversion()`.
+#' @param r Numeric R version as is returned by [base::getRversion()].
+#' Defaults to [rprofile::version_r()].
 #'
 #' @md
 #' @export
