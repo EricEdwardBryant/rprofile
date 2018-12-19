@@ -4,7 +4,7 @@
 \alias{set_repositories}
 \title{Set repositories}
 \usage{
-set_repositories(repos = repos())
+set_repositories(urls = repos())
 }
 \arguments{
 \item{repos}{A named character vector of repositories.

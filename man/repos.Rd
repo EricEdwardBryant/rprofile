@@ -8,7 +8,8 @@ repos(..., cran = getOption("rprofile.cran", version_cran()),
   bioc = getOption("rprofile.bioc", version_bioc()),
   cran_mirror = getOption("rprofile.cran.mirror",
   "https://cran.microsoft.com"),
-  bioc_mirror = getOption("rprofile.bioc.mirror", "https://bioconductor.org"))
+  bioc_mirror = getOption("rprofile.bioc.mirror",
+  "https://bioconductor.org"))
 }
 \arguments{
 \item{...}{User specified repositories added to beginning of vector.}
