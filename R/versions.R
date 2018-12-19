@@ -56,7 +56,7 @@ version_cran <- function(r      = version_r_major_minor(),
 
 map_r_to_snapshot <- function(...) {
   c(...,
-    '3.5' = '2018-12-20',
+    '3.5' = '2018-12-01',
     '3.4' = '2018-04-22',
     '3.3' = '2017-07-01'
   )
