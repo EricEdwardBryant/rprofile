@@ -32,7 +32,7 @@ remotes::install_github("EricEdwardBryant/rprofile")
 Usage
 -----
 
-To begin using rprofile with your project, create a file called `.Rprofile` in either your project's working directory, or your home directory. This file is an R script that is sourced when an R session begins (See `?Startup` for more details about R's startup configuration). For convenience, use one of the following commands to create an `.Rprofile` configured for use with this package (see template below).
+To begin using rprofile with your project, create a file called `.Rprofile` in either your project's working directory, or your home directory. This file is an R script that is sourced when an R session begins (See [`?Startup`](https://stat.ethz.ch/R-manual/R-patched/library/base/html/Startup.html) for more details about R's startup configuration). For convenience, use one of the following commands to create an `.Rprofile` configured for use with this package (see template below).
 
 ``` r
 rprofile::use_rprofile()    # project specific profile in working directory
@@ -49,6 +49,27 @@ The current environment configuration will be displayed when starting a new R se
 ``` r
 rprofile::rprofile()
 ```
+
+For example, my current session is configured with the following environment:
+
+``` r
+rprofile::rprofile(TRUE)
+```
+
+    R        -- R version 3.5.1 (2018-07-02) "Feather Spray"
+    System   -- macOS High Sierra 10.13.6
+    Platform -- x86_64-apple-darwin15.6.0 (64-bit)
+
+    Repositories:
+      https://cran.microsoft.com/snapshot/2018-12-01
+      https://bioconductor.org/packages/3.8/bioc
+      https://bioconductor.org/packages/3.8/data/annotation
+      https://bioconductor.org/packages/3.8/data/experiment
+      https://bioconductor.org/packages/3.8/workflows
+
+    Libraries:
+      /Library/Frameworks/R.framework/Versions/3.5/Resources/library_R-3.5_Bioc-3.8_CRAN-2018-12-01
+      /Library/Frameworks/R.framework/Versions/3.5/Resources/library
 
 Options
 -------

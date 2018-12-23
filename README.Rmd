@@ -56,7 +56,9 @@ remotes::install_github("EricEdwardBryant/rprofile")
 To begin using rprofile with your project, create a file called `.Rprofile` 
 in either your project's working directory, or your home directory.
 This file is an R script that is sourced when an R session begins
-(See `?Startup` for more details about R's startup configuration).
+(See 
+[`?Startup`](https://stat.ethz.ch/R-manual/R-patched/library/base/html/Startup.html) 
+for more details about R's startup configuration).
 For convenience, use one of the following commands to create an `.Rprofile`
 configured for use with this package (see template below).
 
@@ -82,6 +84,12 @@ R session and can be printed anytime with the following command:
 
 ```r
 rprofile::rprofile()
+```
+
+For example, my current session is configured with the following environment:
+
+```{r comment = ""}
+rprofile::rprofile(TRUE)
 ```
 
 ## Options
