@@ -52,10 +52,6 @@ rprofile::rprofile()
 
 For example, my current session is configured with the following environment:
 
-``` r
-rprofile::rprofile(TRUE)
-```
-
     R        -- R version 3.5.1 (2018-07-02) "Feather Spray"
     System   -- macOS High Sierra 10.13.6
     Platform -- x86_64-apple-darwin15.6.0 (64-bit)

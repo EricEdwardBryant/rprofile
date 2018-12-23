@@ -88,7 +88,7 @@ rprofile::rprofile()
 
 For example, my current session is configured with the following environment:
 
-```{r comment = ""}
+```{r echo = FALSE, comment = ""}
 rprofile::rprofile(TRUE)
 ```
 
