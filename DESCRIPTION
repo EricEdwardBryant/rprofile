@@ -1,7 +1,7 @@
 Package: rprofile
 Title: Configure your profile
 Version: 0.0.0.9000
-Authors@R: 'Eric Bryant <eeb2139@columbia.edu> [aut, cre]'
+Authors@R: 'Eric Bryant <EricEdwardBryant@gmail.com> [aut, cre]'
 Description: This package provides tools to configure versioned R package
   repositories and libraries based on the current R version.
 Depends: R (>= 3.0.0)

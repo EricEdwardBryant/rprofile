@@ -1,20 +1,21 @@
 rprofile
 ========
 
-Yet another R package to manage repositories and libraries.
+Yet another R package to manage R packages. The rprofile strategy is a blend of the [packrat](https://rstudio.github.io/packrat) and [checkpoint](https://github.com/RevolutionAnalytics/checkpoint) strategies for package management. It uses the checkpoint repository infrastruction to tie R versions to versioned package repositories, and (optionally) makes it easy to install these packages within a given project.
 
 Motivation
 ----------
 
-Defend your R projects from [bit rot](https://en.wikipedia.org/wiki/Software_rot) caused by the endless march of time and the demands of continued progress! rprofile offers a simple way to manage R packages that allows you to easily reproduce your environment on other computers, while also allowing you to play with all those fun packages being released every day.
+Defend your R projects from [bit rot](https://en.wikipedia.org/wiki/Software_rot) caused by the endless march of time and the demands of continued progress! rprofile offers a simple way to manage R packages that allows you to easily reproduce your environment on other computers, while also allowing you to play with all those fun packages released every day.
 
 Example features:
 
 1.  Quickly setup a project specific package library.
 2.  Tie a sepcific version of R to a fixed set of packages that have been tested to work with that version.
-3.  Easily reproduce package libraries on your friends computers.
+3.  Easily reproduce package libraries on your friend's computers.
 4.  Easily switch between latest package releases and fixed versions.
-5.  Minimal setup and maintenance.
+5.  Easily upgrade R.
+6.  Minimal setup and maintenance.
 
 Judicious package management is essential to ensure your projects remain reproducible for yourself and others. For this, rprofile is here to help!
 
@@ -31,7 +32,7 @@ remotes::install_github("EricEdwardBryant/rprofile")
 Usage
 -----
 
-To begin using rprofile with your project, create a file called `.Rprofile` in your project's working directory. This file is an R script that is sourced when an R session begins (See `?Startup` for more details about R's startup configuration). For convenience, use one of the following commands to create an `.Rprofile` configured for use with this package (see template below).
+To begin using rprofile with your project, create a file called `.Rprofile` in either your project's working directory, or your home directory. This file is an R script that is sourced when an R session begins (See `?Startup` for more details about R's startup configuration). For convenience, use one of the following commands to create an `.Rprofile` configured for use with this package (see template below).
 
 ``` r
 rprofile::use_rprofile()    # project specific profile in working directory
@@ -40,7 +41,7 @@ rprofile::use_rprofile("~") # default user profile in home directory
 
 In the `.Rprofile`, the command `rprofile::set_environment()` configures:
 
-1.  **repositories**, where R packages are downloaded from, which defaults to a snapshot of CRAN and a compatible Bioconductor version. Use, `rprofile::map_r_to_bioc()` and `rprofile::map_r_to_bioc()` to see the default version mappings. Use the `cran_map` and `bioc_map` arguments to specify custom mappings.
+1.  **repositories**, where R packages are downloaded from, which defaults to a snapshot of CRAN and a compatible Bioconductor version. Use, `rprofile::map_r_to_snapshot()` and `rprofile::map_r_to_bioc()` to see the default version mappings. Use the `cran_map` and `bioc_map` arguments to specify custom mappings.
 2.  **libraries**, where R packages are installed, which defaults to a library created alongside the system default library that is named with R, Bioconductor and CRAN snapshot version information. Use the `home` argument to move this library to a different location.
 
 The current environment configuration will be displayed when starting a new R session and can be printed anytime with the following command:
@@ -71,6 +72,8 @@ rprofile::set_environment(latest = TRUE)
 
 Default `.Rprofile` template
 ----------------------------
+
+The current default `.Rprofile` generated be `rprofile::use_rprofile()` is provided below.
 
     # R executes this function before starting the R session. See ?Startup.
     .First <- function() {
