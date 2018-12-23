@@ -1,126 +1,109 @@
-# rprofile
+rprofile
+========
 
-A simple R package to manage repositories and libraries.
+Yet another R package to manage repositories and libraries.
 
-## Install
+Motivation
+----------
 
-Install the package using [remotes](https://github.com/r-lib/remotes).
-Both the remotes, and rprofile packages require R >= 3.0.0 and have no 
-additional package requirements.
+Defend your R projects from [bit rot](https://en.wikipedia.org/wiki/Software_rot) caused by the endless march of time and the demands of continued progress! rprofile offers a simple way to manage R packages that allows you to easily reproduce your environment on other computers, while also allowing you to play with all those fun packages being released every day.
 
-```r
+Example features:
+
+1.  Quickly setup a project specific package library.
+2.  Tie a sepcific version of R to a fixed set of packages that have been tested to work with that version.
+3.  Easily reproduce package libraries on your friends computers.
+4.  Easily switch between latest package releases and fixed versions.
+5.  Minimal setup and maintenance.
+
+Judicious package management is essential to ensure your projects remain reproducible for yourself and others. For this, rprofile is here to help!
+
+Install
+-------
+
+Install the package using [remotes](https://github.com/r-lib/remotes). Both the remotes, and rprofile packages require R &gt;= 3.0.0 and have no additional package requirements.
+
+``` r
 install.packages("remotes")
 remotes::install_github("EricEdwardBryant/rprofile")
 ```
 
-## Usage
+Usage
+-----
 
-The following is a minimal example detailing the usage of the rprofile package
-in an
-[.Rprofile](https://csgillespie.github.io/efficientR/3-3-r-startup.html#r-startup).
-When R starts, it searches for a file named `.Rprofile`, which is an R script
-that will be sourced before the session begins.
-User level configuration can be set by placing a `.Rprofile` in your home
-directory.
-Project level configuration can be set by placing a `.Rprofile` in your
-project's directory.
+To begin using rprofile with your project, create a file called `.Rprofile` in your project's working directory. This file is an R script that is sourced when an R session begins (See `?Startup` for more details about R's startup configuration). For convenience, use one of the following commands to create an `.Rprofile` configured for use with this package (see template below).
 
-In the `.Rprofile` you can use the rprofile package to configure R package
-*repositories* (where packages are downloaded from) and *libraries* (where
-packages are downloaded to).
-By default, rprofile ties the current R version to a snapshot of CRAN
-hosted by Microsoft, and a compatible version of Bioconductor.
-Then, a library is created alongside the system default library that is named
-with R, Bioconductor and CRAN snapshot version information.
-
-```r
-# R executes this function before starting the R session. See ?Startup.
-.First <- function() {
-  if (.rprofile_installed()) rprofile::set_environment()
-}
-
-# Use as escape hatch if the rprofile package is not available
-.rprofile_installed <- function() {
-  installed <- rownames(utils::installed.packages(.Library))
-  remotes  <- !"remotes" %in% installed
-  rprofile <- !"rprofile" %in% installed
-
-  if (remotes)
-    message(
-      'Please install the "remotes" package into your system library:\n  ',
-      'install.packages("remotes", lib = .Library)\n')
-  
-  if (rprofile)
-    message(
-      'Please install the "rprofile" package into your system library:\n  ',
-      'remotes::install_github("EricEdwardBryant/rprofile", lib = .Library)\n')
-  
-  !(remotes || rprofile)
-}
+``` r
+rprofile::use_rprofile()    # project specific profile in working directory
+rprofile::use_rprofile("~") # default user profile in home directory
 ```
 
-The current environment configuration can be printed anytime with the following
-command:
+In the `.Rprofile`, the command `rprofile::set_environment()` configures:
 
-```r
+1.  **repositories**, where R packages are downloaded from, which defaults to a snapshot of CRAN and a compatible Bioconductor version. Use, `rprofile::map_r_to_bioc()` and `rprofile::map_r_to_bioc()` to see the default version mappings. Use the `cran_map` and `bioc_map` arguments to specify custom mappings.
+2.  **libraries**, where R packages are installed, which defaults to a library created alongside the system default library that is named with R, Bioconductor and CRAN snapshot version information. Use the `home` argument to move this library to a different location.
+
+The current environment configuration will be displayed when starting a new R session and can be printed anytime with the following command:
+
+``` r
 rprofile::rprofile()
 ```
 
-## Options
+Options
+-------
 
-These are the available options that can be used to configure the environment.
+Configure your environment with the following arguments to `rprofile::set_environment()`:
 
-- **rprofile.home** -- Where to create the version package library.
-- **rprofile.latest** -- Whether to use the latest un-versioned CRAN repository.
-- **rprofile.r_name** -- The name of the R version used to determine CRAN and
-  Bioconductor versions.
-- **rprofile.cran_map** -- A named vector mapping R version (names) to CRAN
-  snapshot date (value).
-  Overrides default mappings returned by `rprofile::map_r_to_snapshot()`.
-- **rprofile.bioc_map** -- A named vector mapping R version (names) to
-  Bioconductor version (value).
-  Overrides default mappings returned by `rprofile::map_r_to_bioc()`.
-- **rprofile.cran_mirror** -- A URL to a CRAN mirror with snapshots.
-- **rprofile.bioc_mirror** -- A URL to a Bioconductor mirror.
-- **rprofile.verbose** -- Wether to display message describing environment.
+-   **home** -- Where to create the version package library.
+-   **latest** -- Whether to use the latest un-versioned CRAN repository.
+-   **r\_name** -- The name of the R version used to determine CRAN and Bioconductor versions.
+-   **cran\_map** -- A named vector mapping R version (names) to CRAN snapshot date (value). Overrides default mappings returned by `rprofile::map_r_to_snapshot()`.
+-   **bioc\_map** -- A named vector mapping R version (names) to Bioconductor version (value). Overrides default mappings returned by `rprofile::map_r_to_bioc()`.
+-   **cran\_mirror** -- A URL to a CRAN mirror with snapshots.
+-   **bioc\_mirror** -- A URL to a Bioconductor mirror.
+-   **verbose** -- Wether to display message describing environment.
 
-My system R profile looks something like the following, which includes all of
-the available rprofile package options that can be configured before setting the
-environment.
+All of these arguments can also be set during startup as options of the same name prepended with `"rprofile."`. Doing so will preserve your configuration while allowing you to, for example, switch to the latest version of packages from CRAN during an R session with:
 
-```r
-# R executes this function before starting the R session. See ?Startup.
-.First <- function() {
-  if (.rprofile_installed()) {
-    rprofile::set_environment(
-      home        = R.home(),
-      latest      = FALSE,
-      r_name      = rprofile::version_r_major_minor(),
-      cran_map    = NULL,
-      bioc_map    = NULL,
-      cran_mirror = "https://cran.microsoft.com",
-      bioc_mirror = "https://bioconductor.org",
-      verbose     = interactive()
-    )
-  }
-}
-
-# Use as escape hatch if the rprofile package is not available
-.rprofile_installed <- function() {
-  installed <- rownames(utils::installed.packages(.Library))
-  remotes  <- !"remotes" %in% installed
-  rprofile <- !"rprofile" %in% installed
-
-  if (remotes)
-    message(
-      'Please install the "remotes" package into your system library:\n  ',
-      'install.packages("remotes", lib = .Library)\n')
-  
-  if (rprofile)
-    message(
-      'Please install the "rprofile" package into your system library:\n  ',
-      'remotes::install_github("EricEdwardBryant/rprofile", lib = .Library)\n')
-  
-  !(remotes || rprofile)
-}
+``` r
+rprofile::set_environment(latest = TRUE)
 ```
+
+Default `.Rprofile` template
+----------------------------
+
+    # R executes this function before starting the R session. See ?Startup.
+    .First <- function() {
+
+      options(
+        rprofile.home        = R.home(),
+        rprofile.latest      = FALSE,
+        rprofile.r_name      = getRversion()[, 1:2], # Major.minor version
+        rprofile.cran_map    = NULL,
+        rprofile.bioc_map    = NULL,
+        rprofile.cran_mirror = "https://cran.microsoft.com",
+        rprofile.bioc_mirror = "https://bioconductor.org",
+        rprofile.verbose     = interactive()
+      )
+
+      if (.rprofile_installed()) rprofile::set_environment()
+    }
+
+    # Check for rprofile package
+    .rprofile_installed <- function() {
+      installed <- rownames(utils::installed.packages(.Library))
+      remotes  <- !"remotes" %in% installed
+      rprofile <- !"rprofile" %in% installed
+
+      if (remotes)
+        message(
+          'Please install the "remotes" package into your system library:\n  ',
+          'install.packages("remotes", lib = .Library)\n')
+
+      if (rprofile)
+        message(
+          'Please install the "rprofile" package into your system library:\n  ',
+          'remotes::install_github("EricEdwardBryant/rprofile", lib = .Library)\n')
+
+      !(remotes || rprofile)
+    }
