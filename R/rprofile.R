@@ -308,3 +308,25 @@ rprofile <- function(verbose = interactive()) {
   message('Repositories:\n', paste0('  ', repos, collapse = '\n'), '\n')
   message('Libraries:\n', paste0('  ', libs, collapse = '\n'), '\n')
 }
+
+# ---- Check system library ----
+#' Check system library for unallwed packages
+#'
+#' @param allowed Character vector of allowed packages.
+#' Defaults to "rprofile.system_library" user option if set, else
+#' `c("remotes", "rprofile")`
+#'
+#' @export
+
+check_system_library <- function(allowed = getOption("rprofile.system_library", c("remotes", "rprofile"))) {
+  pkgs     <- as.data.frame(installed.packages(lib.loc = .Library))
+  non_base <- as.character(pkgs[is.na(pkgs$Priority), ]$Package)
+  bad      <- setdiff(non_base, allowed)
+  if (length(bad)) {
+    message(
+      "Please remove unallowed system library packages:\n  ",
+      'remove.packages(c("', paste0(bad, collapse = '", "'), '"), .Library)'
+    )
+  }
+  return(invisible(bad))
+}
