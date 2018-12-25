@@ -4,15 +4,15 @@
 \alias{use_rprofile}
 \title{Use rprofile}
 \usage{
-use_rprofile(dir = ".", template = system.file("templates/Rprofile.R",
-  package = "rprofile"))
+use_rprofile(dir = ".", template = getOption("rprofile.template"))
 }
 \arguments{
 \item{dir}{Path to directory to create the Rprofile.
 Defaults to the current working directory (i.e. ".").}
 
 \item{template}{Path to Rprofile template.
-Defaults to a template included in the rprofile package.}
+Defaults to "rprofile.template" option if set, else
+a template included in the rprofile package.}
 }
 \description{
 Create an Rprofile from template.
