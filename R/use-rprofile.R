@@ -59,7 +59,7 @@ diff_lines <- function(x, y) {
   }
 
   if (length(y_i)) {
-    y_msg <- c(y_msg, paste0(format(paste0("[", y_i, "] ")), x[y_i]), "\n")
+    y_msg <- c(y_msg, paste0(format(paste0("[", y_i, "] ")), y[y_i]), "\n")
   }
 
   cat(c(x_msg, y_msg), sep = "\n")
