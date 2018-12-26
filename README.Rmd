@@ -111,6 +111,7 @@ Configure your environment with the following arguments to
 - **cran_mirror** -- A URL to a CRAN mirror with snapshots.
 - **bioc_mirror** -- A URL to a Bioconductor mirror.
 - **verbose** -- Wether to display message describing environment.
+- **system_pkgs** -- Packages allowed in the system library.
 
 All of these arguments can also be set during startup as options of the same
 name prepended with `"rprofile."`.

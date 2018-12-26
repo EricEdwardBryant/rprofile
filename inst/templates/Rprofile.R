@@ -10,7 +10,8 @@
     rprofile.cran_mirror = "https://cran.microsoft.com",
     rprofile.bioc_mirror = "https://bioconductor.org",
     rprofile.verbose     = interactive(),
-    rprofile.system_pkgs = c("remotes", "rprofile")
+    rprofile.system_pkgs = c("remotes", "rprofile"),
+    rprofile.template    = NULL # path to template for rprofile::use_rprofile()
   )
 
   if (.rprofile_installed()) rprofile::set_environment()
