@@ -291,6 +291,7 @@ set_library <- function(lib) {
 #' @param verbose Logical. Should the message be issued. Defaults to `TRUE` in
 #' an interactive session, `FALSE` otherwise.
 #'
+#' @importFrom utils sessionInfo
 #' @md
 #' @export
 
@@ -330,11 +331,12 @@ rprofile <- function(verbose = interactive()) {
 #' Returns an invisible character vector of unallowed packages currently
 #' installed in the system library.
 #'
+#' @importFrom utils installed.packages
 #' @md
 #' @export
 
 check_system_packages <- function(allowed = getOption("rprofile.system_pkgs", c("remotes", "rprofile"))) {
-  pkgs     <- as.data.frame(installed.packages(lib.loc = .Library))
+  pkgs     <- as.data.frame(utils::installed.packages(lib.loc = .Library))
   non_base <- as.character(pkgs[is.na(pkgs$Priority), ]$Package)
   bad      <- setdiff(non_base, allowed)
   if (length(bad)) {
