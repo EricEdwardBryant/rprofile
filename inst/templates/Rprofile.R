@@ -9,7 +9,8 @@
     rprofile.bioc_map    = NULL,
     rprofile.cran_mirror = "https://cran.microsoft.com",
     rprofile.bioc_mirror = "https://bioconductor.org",
-    rprofile.verbose     = interactive()
+    rprofile.verbose     = interactive(),
+    rprofile.system_pkgs = c("remotes", "rprofile")
   )
 
   if (.rprofile_installed()) rprofile::set_environment()

@@ -13,7 +13,8 @@ set_environment(home = getOption("rprofile.home", R.home()),
   "https://cran.microsoft.com"),
   bioc_mirror = getOption("rprofile.bioc_mirror",
   "https://bioconductor.org"), verbose = getOption("rprofile.verbose",
-  interactive()))
+  interactive()), system_pkgs = getOption("rprofile.system_pkgs",
+  c("remotes", "rprofile")))
 }
 \arguments{
 \item{home}{Where to create the version package library.
@@ -42,6 +43,11 @@ Defaults to "rprofile.bioc_mirror" option if set, else \link{https://bioconducto
 
 \item{verbose}{Whether to message user with environment information.
 Defaults to "rprofile.verbose" option if set, else \code{\link[base:interactive]{base::interactive()}}.}
+
+\item{system_pkgs}{Character vector of packages that are allowed in the
+system library.
+Defaults to "rprofile.system_pkgs" option if set, else
+\code{c("remotes", "rprofile")}.}
 }
 \description{
 This function configures versioned package repositories and libraries based

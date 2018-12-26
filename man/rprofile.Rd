@@ -7,8 +7,8 @@
 rprofile(verbose = interactive())
 }
 \arguments{
-\item{verbose}{Logical. Should the message be issued. Defaults to TRUE in
-an interactive session, FALSE otherwise.}
+\item{verbose}{Logical. Should the message be issued. Defaults to \code{TRUE} in
+an interactive session, \code{FALSE} otherwise.}
 }
 \description{
 Message the user to indicate current system, repository and library

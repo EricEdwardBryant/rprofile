@@ -75,6 +75,10 @@ map_r_to_bioc <- function(...) {
 #' Defaults to "rprofile.bioc_mirror" option if set, else [https://bioconductor.org].
 #' @param verbose Whether to message user with environment information.
 #' Defaults to "rprofile.verbose" option if set, else [base::interactive()].
+#' @param system_pkgs Character vector of packages that are allowed in the
+#' system library.
+#' Defaults to "rprofile.system_pkgs" option if set, else
+#' `c("remotes", "rprofile")`.
 #'
 #' @md
 #' @export
@@ -86,7 +90,8 @@ set_environment <- function(home         = getOption("rprofile.home", R.home()),
                             bioc_map     = getOption("rprofile.bioc_map"),
                             cran_mirror  = getOption("rprofile.cran_mirror", "https://cran.microsoft.com"),
                             bioc_mirror  = getOption("rprofile.bioc_mirror", "https://bioconductor.org"),
-                            verbose      = getOption("rprofile.verbose", interactive())) {
+                            verbose      = getOption("rprofile.verbose", interactive()),
+                            system_pkgs  = getOption("rprofile.system_pkgs", c("remotes", "rprofile"))) {
 
   v_cran   <- version_cran(cran_map, r = as.character(r_name), latest = latest)
   v_bioc   <- version_bioc(bioc_map, r = as.character(r_name))
@@ -103,6 +108,7 @@ set_environment <- function(home         = getOption("rprofile.home", R.home()),
   set_repositories(repositories)
   set_library(lib_path)
   rprofile(verbose)
+  check_system_packages(system_pkgs) # Warns if issue, otherwise silent
 
   invisible(list(
     'r_name'       = r_name,
@@ -282,9 +288,10 @@ set_library <- function(lib) {
 #' Message the user to indicate current system, repository and library
 #' configuration.
 #'
-#' @param verbose Logical. Should the message be issued. Defaults to TRUE in
-#' an interactive session, FALSE otherwise.
+#' @param verbose Logical. Should the message be issued. Defaults to `TRUE` in
+#' an interactive session, `FALSE` otherwise.
 #'
+#' @md
 #' @export
 
 rprofile <- function(verbose = interactive()) {
@@ -309,23 +316,35 @@ rprofile <- function(verbose = interactive()) {
   message('Libraries:\n', paste0('  ', libs, collapse = '\n'), '\n')
 }
 
-# ---- Check system library ----
-#' Check system library for unallwed packages
+# ---- Check system packages ----
+#' Check system library packages
+#'
+#' Checks the system library for unallowed packages and warns the user
+#' to migrate to newly configured libraries.
 #'
 #' @param allowed Character vector of allowed packages.
-#' Defaults to "rprofile.system_library" user option if set, else
-#' `c("remotes", "rprofile")`
+#' Defaults to "rprofile.system_pkgs" user option if set, else
+#' `c("remotes", "rprofile")`.
 #'
+#' @return
+#' Returns an invisible character vector of unallowed packages currently
+#' installed in the system library.
+#'
+#' @md
 #' @export
 
-check_system_library <- function(allowed = getOption("rprofile.system_library", c("remotes", "rprofile"))) {
+check_system_packages <- function(allowed = getOption("rprofile.system_pkgs", c("remotes", "rprofile"))) {
   pkgs     <- as.data.frame(installed.packages(lib.loc = .Library))
   non_base <- as.character(pkgs[is.na(pkgs$Priority), ]$Package)
   bad      <- setdiff(non_base, allowed)
   if (length(bad)) {
-    message(
-      "Please remove unallowed system library packages:\n  ",
-      'remove.packages(c("', paste0(bad, collapse = '", "'), '"), .Library)'
+    warning(
+      "\nPlease migrate unallowed system library packages into your rprofile library:\n  ",
+      'unallowed <- c("', paste0(bad, collapse = '", "'), '")\n  ',
+      'install.packages(unallowed)          # install into rprofile library\n  ',
+      'remove.packages(unallowed, .Library) # remove from system library\n\n',
+      'Or, add to allowed system packages:\n  ',
+      'options(rprofile.system_pkgs = c("remotes", "rprofile", "<PKG_NAME>"))\n'
     )
   }
   return(invisible(bad))
