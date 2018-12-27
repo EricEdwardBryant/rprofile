@@ -18,8 +18,8 @@
 }
 
 # Check for rprofile package
-.rprofile_installed <- function(lib = .libPaths()) {
-  is_needed <- function(x, lib) find.package(x, lib, quiet = TRUE) == 0L
+.rprofile_installed <- function(lib = .libPaths()[1]) {
+  is_needed <- function(x, lib) length(find.package(x, lib, quiet = TRUE)) == 0L
   need_remotes  <- is_needed("remotes", lib)
   need_rprofile <- is_needed("rprofile", lib)
 
