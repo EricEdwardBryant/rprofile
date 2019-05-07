@@ -5,6 +5,7 @@
 map_r_to_snapshot <- function(...) {
   c(...,
     # R   = snapshot
+    # will default to R.version date info if unset here
     '3.5' = '2018-12-01',
     '3.4' = '2018-04-22',
     '3.3' = '2017-07-01'
@@ -17,6 +18,8 @@ map_r_to_snapshot <- function(...) {
 map_r_to_bioc <- function(...) {
   c(...,
     # R    = Bioc
+    #"3.7" = "3.11", # just a guess
+    #"3.6" = "3.10", # Bioc devel as of 2019-05-07
     "3.6"  = "3.9",
     "3.5"  = "3.8",
     "3.5"  = "3.7",
