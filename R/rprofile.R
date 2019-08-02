@@ -278,6 +278,7 @@ library_path <- function(home, r_name, cran, bioc) {
 set_library <- function(lib) {
   lapply(lib[!file.exists(lib)], dir.create, recursive = TRUE)
   .libPaths(lib)
+  Sys.setenv(R_LIBS_USER = .libPaths()[1])
   return(invisible())
 }
 
