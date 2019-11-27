@@ -41,8 +41,9 @@ Both the remotes, and rprofile packages require R &gt;= 3.0.0
 (2013-04-03) and have no additional package requirements.
 
 ``` r
-install.packages("remotes")
-remotes::install_github("EricEdwardBryant/rprofile")
+# I recommend installing in the standard library (hence `lib = .Library`)
+install.packages("remotes", lib = .Library)
+remotes::install_github("EricEdwardBryant/rprofile", lib = .Library)
 ```
 
 Usage
@@ -120,6 +121,9 @@ Configure your environment with the following arguments to
 -   **bioc\_mirror** – A URL to a Bioconductor mirror.
 -   **verbose** – Wether to display message describing environment.
 -   **system\_pkgs** – Packages allowed in the system library.
+-   **template** – Path to template used by `rprofile::use_rprofile()`.
+    I recommend setting this to `"~/.Rprofile"` as this is your standard
+    profile applied by default to all R sessions.
 
 All of these arguments can also be set during startup as options of the
 same name prepended with `"rprofile."`. Doing so will preserve your
