@@ -68,14 +68,18 @@ map_r_to_bioc <- function(...) {
 #' [rprofile::version_r_major_minor()].
 #' @param cran_map Named character vector.
 #' Name-value pairs (R version = CRAN snapshot).
-#' If provided, overrides default values returned by [rprofile::map_r_to_snapshot()].
+#' If provided, overrides default values returned by
+#' [rprofile::map_r_to_snapshot()].
 #' @param bioc_map Named character vector.
 #' Name-value pairs (R version = Bioc version).
-#' If provided, overrides default values returned by [rprofile::map_r_to_bioc()].
+#' If provided, overrides default values returned by
+#' [rprofile::map_r_to_bioc()].
 #' @param cran_mirror URL for CRAN snapshot mirror.
-#' Defaults to "rprofile.cran_mirror" option if set, else [https://cran.microsoft.com].
+#' Defaults to "rprofile.cran_mirror" option if set, else
+#' [https://cran.microsoft.com](https://cran.microsoft.com).
 #' @param bioc_mirror URL for Bioconductor mirror.
-#' Defaults to "rprofile.bioc_mirror" option if set, else [https://bioconductor.org].
+#' Defaults to "rprofile.bioc_mirror" option if set, else
+#' [https://bioconductor.org](https://bioconductor.org).
 #' @param verbose Whether to message user with environment information.
 #' Defaults to "rprofile.verbose" option if set, else [base::interactive()].
 #' @param system_pkgs Character vector of packages that are allowed in the

@@ -29,17 +29,21 @@ Defaults to "rprofile.r_name" option if set, else
 
 \item{cran_map}{Named character vector.
 Name-value pairs (R version = CRAN snapshot).
-If provided, overrides default values returned by \code{\link[rprofile:map_r_to_snapshot]{rprofile::map_r_to_snapshot()}}.}
+If provided, overrides default values returned by
+\code{\link[rprofile:map_r_to_snapshot]{rprofile::map_r_to_snapshot()}}.}
 
 \item{bioc_map}{Named character vector.
 Name-value pairs (R version = Bioc version).
-If provided, overrides default values returned by \code{\link[rprofile:map_r_to_bioc]{rprofile::map_r_to_bioc()}}.}
+If provided, overrides default values returned by
+\code{\link[rprofile:map_r_to_bioc]{rprofile::map_r_to_bioc()}}.}
 
 \item{cran_mirror}{URL for CRAN snapshot mirror.
-Defaults to "rprofile.cran_mirror" option if set, else \link{https://cran.microsoft.com}.}
+Defaults to "rprofile.cran_mirror" option if set, else
+\url{https://cran.microsoft.com}.}
 
 \item{bioc_mirror}{URL for Bioconductor mirror.
-Defaults to "rprofile.bioc_mirror" option if set, else \link{https://bioconductor.org}.}
+Defaults to "rprofile.bioc_mirror" option if set, else
+\url{https://bioconductor.org}.}
 
 \item{verbose}{Whether to message user with environment information.
 Defaults to "rprofile.verbose" option if set, else \code{\link[base:interactive]{base::interactive()}}.}
