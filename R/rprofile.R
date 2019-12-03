@@ -18,8 +18,8 @@ map_r_to_snapshot <- function(...) {
 map_r_to_bioc <- function(...) {
   c(...,
     # R    = Bioc
-    #"3.7" = "3.11", # just a guess
-    #"3.6" = "3.10", # Bioc devel as of 2019-05-07
+    "4.0"  = "3.11",
+    "3.6"  = "3.10",
     "3.6"  = "3.9",
     "3.5"  = "3.8",
     "3.5"  = "3.7",
